@@ -5,7 +5,7 @@ import (
 )
 
 var HttpServerS = []HttpServer{
-	HttpServer{"https://ifconfig.me/"},
+	{"https://ifconfig.me/"},
 	{"https://icanhazip.com/"},
 	{"https://ident.me/"},
 	{"https://ipecho.net/plain"},
