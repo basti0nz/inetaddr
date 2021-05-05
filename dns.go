@@ -1,38 +1,28 @@
 package inetaddr
 
 import (
-  dns "github.com/Focinfi/go-dns-resolver"
-  "log"
+	"fmt"
+	"net"
+
+	dns "github.com/Focinfi/go-dns-resolver"
 )
 
-func main() {
-  domains := []string{"google.com", "twitter.com"}
-  types := []dns.QueryType{dns.TypeA, dns.TypeNS, dns.TypeMX, dns.TypeTXT}
+func DnsCheck(record DnsServer) (net.IP, error) {
+	// Set timeout and retry times
+	dns.Config.SetTimeout(uint(2))
+	dns.Config.RetryTimes = uint(4)
 
-  // Set timeout and retry times
-  dns.Config.SetTimeout(uint(2))
-  dns.Config.RetryTimes = uint(4)
+	results, err := dns.Exchange(record.Record, fmt.Sprintf("%s%s", record.Server, ":53"), record.RecordType)
+	if err != nil {
+		return nil, fmt.Errorf("Response error: %s", err)
+	}
 
-  // Simple usage
-  if results, err := dns.Exchange("google.com", "119.29.29.29", dns.TypeA); err == nil {
-    for _, r := range results {
-      log.Println(r.Record, r.Type, r.Ttl, r.Priority, r.Content)
-    }
-  } else {
-    log.Fatal(err)
-  }
-
-  // Create and setup resolver with domains and types
-  resolver := dns.NewResolver("119.29.29.29")
-  resolver.Targets(domains...).Types(types...)
-  // Lookup
-  res := resolver.Lookup()
-
-  //res.ResMap is a map[string]*ResultItem, key is the domain
-  for target := range res.ResMap {
-    log.Printf("%v: \n", target)
-    for _, r := range res.ResMap[target] {
-      log.Println(r.Record, r.Type, r.Ttl, r.Priority, r.Content)
-    }
-  }
+	for _, r := range results {
+		ip := net.ParseIP(r.Content)
+		if ip == nil {
+			return nil, fmt.Errorf("Response error: not ip address %s", ip.String())
+		}
+		return ip, nil
+	}
+	return nil, fmt.Errorf("Error: unknown error")
 }

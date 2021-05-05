@@ -12,7 +12,6 @@ var HttpServerS = []HttpServer{
 	{"https://checkip.amazonaws.com/"},
 	{"https://wgetip.com/"},
 	{"https://ip.tyk.nu/"},
-	{"https://corz.org/ip"},
 	{"https://bot.whatismyipaddress.com/"},
 	{"https://ipof.in/txt"},
 	{"https://l2.io/ip"},
