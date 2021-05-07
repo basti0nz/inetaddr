@@ -1,0 +1,9 @@
+
+git tag  | grep -E '^v[0-9]' | sort -V | tail -1
+git ls-remote --tags --sort=committerdate | grep -o 'v.*' | sort -r | head -1
+
+
+git commit -am "inetaddr: changes for v1.0.0"
+git tag v1.0.0
+git push origin v1.0.0
+GOPROXY=proxy.golang.org go list -m  github.com/basti0nz/inetaddr@v1.0.0
