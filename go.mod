@@ -1,4 +1,4 @@
-module inetaddr
+module github.com/basti0nz/inetaddr
 
 go 1.16
 
