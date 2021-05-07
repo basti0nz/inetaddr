@@ -20,11 +20,11 @@ func init() {
 }
 
 func TestInetAddr(t *testing.T) {
-	assert.Equal(t, myIP.String(), InetAddr())
+	assert.Equal(t, myIP.String(), InetAddr(BothMethod))
 }
 
 func TestIpAddrString(t *testing.T) {
-	ip, err := IpAddrString()
+	ip, err := IpAddrString(OnlyDNS)
 	if err != nil {
 		t.Errorf("Expected IP but has  %s", err)
 	}
@@ -32,9 +32,10 @@ func TestIpAddrString(t *testing.T) {
 }
 
 func TestIpAddrIP(t *testing.T) {
-	ip, err := IpAddrIP()
+	ip, err := IpAddrIP(OnlyHTTP)
 	if err != nil {
 		t.Errorf("Expected IP but has  %s", err)
 	}
 	assert.Equal(t, myIP, ip)
+
 }

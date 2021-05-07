@@ -13,12 +13,12 @@ func HttpCheck(r HttpServer) (net.IP, error) {
 	// Set timeout and retry times
 	client := &fasthttp.Client{
 		NoDefaultUserAgentHeader:      true, // Don't send: User-Agent: fasthttp
-		MaxConnsPerHost:               100,
+		MaxConnsPerHost:               500,
 		ReadBufferSize:                4096, // Make sure to set this big enough that your whole request can be read at once.
 		WriteBufferSize:               4096, // Same but for your response.
 		ReadTimeout:                   time.Second,
 		WriteTimeout:                  time.Second,
-		MaxIdleConnDuration:           time.Minute,
+		MaxIdleConnDuration:           15 * time.Second,
 		DisableHeaderNamesNormalizing: true, // If you set the case on your headers correctly you can enable this.
 	}
 
