@@ -1,24 +1,20 @@
 package main
 
 import (
+	"fmt"
 	"inetaddr"
-	"log"
 )
 
 func main() {
-	for i := range inetaddr.DnsServerS {
-		ip, err := inetaddr.DnsCheck(inetaddr.DnsServerS[i])
-		if err != nil {
-			log.Println("error: ", inetaddr.DnsServerS[i].Server, " has error ", err)
-		}
-		log.Println(inetaddr.DnsServerS[i].Server, ip.String())
+	ip, err := inetaddr.IpAddrString()
+	if err != nil {
+		fmt.Println(err)
 	}
+	fmt.Println(ip)
 
-	for j := range inetaddr.HttpServerS {
-		ip, err := inetaddr.HttpCheck(inetaddr.HttpServerS[j])
-		if err != nil {
-			log.Println("error: ", inetaddr.HttpServerS[j].Server, " has error ", err)
-		}
-		log.Println(inetaddr.HttpServerS[j].Server, ip.String())
+	ipIP, err := inetaddr.IpAddrIP()
+	if err != nil {
+		fmt.Println(err)
 	}
+	fmt.Println(ipIP.String())
 }

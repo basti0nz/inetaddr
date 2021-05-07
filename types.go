@@ -17,6 +17,6 @@ type HttpServer struct {
 }
 
 type IPAddrResolver interface {
-	ipAddrString() (string, error)
-	ipAddrIP() (net.IP, error)
+	IpAddrString() (string, error)
+	IpAddrIP() (net.IP, error)
 }
