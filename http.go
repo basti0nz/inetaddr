@@ -36,7 +36,7 @@ func HttpCheck(r HttpServer) (net.IP, error) {
 	bodyBytes := bytes.TrimSpace(resp.Body())
 	ip := net.ParseIP(string(bodyBytes[:]))
 	if ip == nil {
-		return nil, fmt.Errorf("Response error: not ip address %s", ip.String())
+		return nil, fmt.Errorf("Response error: not ip address %s", string(bodyBytes[:]))
 	}
 	return ip, nil
 }
