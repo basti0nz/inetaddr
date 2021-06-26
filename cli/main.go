@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"inetaddr"
+	"github.com/basti0nz/inetaddr"
 )
 
 const (
